@@ -68,9 +68,12 @@ class Handler extends Controller {
         // ... or echo the image data to the browser
         } else {
             $absolute_path = $this->storage->getLocalCropsDirPath() . '/' . $crop_path;
-            return new BinaryFileResponse($absolute_path, 200, [
+            $response = new BinaryFileResponse($absolute_path, 200, [
                 'Content-Type' => $this->getContentType($absolute_path),
             ]);
+            ob_end_clean();
+            return $response;
+
         }
     }
 
